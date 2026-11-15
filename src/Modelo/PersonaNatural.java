@@ -6,8 +6,48 @@ package Modelo;
 
 /**
  *
- * @author Gundi
+ * @author jposp
  */
-public class PersonaNatural {
+public final class PersonaNatural extends Cliente {
+    private String numeroTelefono;
+    private String correoElectronico;
+
+    public PersonaNatural(String numeroTelefono, String correoElectronico, String numeroIdentificacion, String nombre, String nombreCiudad) {
+        super(numeroIdentificacion, nombre, nombreCiudad);
+        this.numeroTelefono = numeroTelefono;
+        this.correoElectronico = correoElectronico;
+    }
+
+    public String getNumeroTelefono() {
+        return numeroTelefono;
+    }
+
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    public void setNumeroTelefono(String numeroTelefono) {
+        this.numeroTelefono = numeroTelefono;
+    }
+
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    @Override
+    public String toString() {
+        return "PersonaNatural{"
+                + super.toString() + " ,"
+                + "numeroTelefono="
+                + numeroTelefono 
+                + ", correoElectronico="
+                + correoElectronico 
+                + '}';
+    }
+
+ 
+
+    
+ 
     
 }

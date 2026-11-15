@@ -6,8 +6,34 @@ package Modelo;
 
 /**
  *
- * @author Gundi
+ * @author jposp
  */
-public class Empresa {
+public final class Empresa extends Cliente {
+    private Contacto suContacto;
+
+    public Empresa(Contacto suContacto, String numeroIdentificacion, String nombre, String nombreCiudad) {
+        super(numeroIdentificacion, nombre, nombreCiudad);
+        this.suContacto = suContacto;
+    }
+
+    public Contacto getSuContacto() {
+        return suContacto;
+    }
+
+    public void setSuContacto(Contacto suContacto) {
+        this.suContacto = suContacto;
+    }
+
+    @Override
+    public String toString() {
+        return "Empresa{"
+                + super.toString() +  " ,"
+                + "suContacto="
+                + suContacto 
+                + '}';
+    }
+    
+    
     
 }
+
