@@ -6,8 +6,57 @@ package Modelo;
 
 /**
  *
- * @author Gundi
+ * @author jp
  */
 public class Empleado {
+    private String numeroIdentificacion;
+    private String nombreCompleto;
+    private String tituloProfesional;
+    private byte aniosExperiencia;
+
+    public Empleado(String numeroIdentificacion, String nombreCompleto, String tituloProfesional, byte aniosExperiencia) {
+        this.numeroIdentificacion = numeroIdentificacion;
+        this.nombreCompleto = nombreCompleto;
+        this.tituloProfesional = tituloProfesional;
+        this.aniosExperiencia = aniosExperiencia;
+    }
+
+    public String getNumeroIdentificacion() {
+        return numeroIdentificacion;
+    }
+
+    public String getNombreCompleto() {
+        return nombreCompleto;
+    }
+
+    public String getTituloProfesional() {
+        return tituloProfesional;
+    }
+
+    public byte getAniosExperiencia() {
+        return aniosExperiencia;
+    }
+
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
+        this.numeroIdentificacion = numeroIdentificacion;
+    }
+
+    public void setNombreCompleto(String nombreCompleto) {
+        this.nombreCompleto = nombreCompleto;
+    }
+
+    public void setTituloProfesional(String tituloProfesional) {
+        this.tituloProfesional = tituloProfesional;
+    }
+
+    public void setAniosExperiencia(byte aniosExperiencia) {
+        this.aniosExperiencia = aniosExperiencia;
+    }
+
+    @Override
+    public String toString() {
+        return "Empleado{" + "numeroIdentificacion=" + numeroIdentificacion + ", nombreCompleto=" + nombreCompleto + ", tituloProfesional=" + tituloProfesional + ", aniosExperiencia=" + aniosExperiencia + '}';
+    }
+    
     
 }
