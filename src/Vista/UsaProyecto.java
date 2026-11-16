@@ -1,19 +1,37 @@
 package Vista;
 
-import Modelo.*;
+import Modelo.Cliente;
+import Modelo.Contacto;
+import Modelo.Empleado;
+import Modelo.Empresa;
+import Modelo.PersonaNatural;
+import Modelo.Proyecto;
 import java.awt.BorderLayout;
 import java.awt.FlowLayout;
-import java.io.*;
+import java.io.EOFException;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.time.LocalDate;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
 
 public class UsaProyecto extends JFrame {
 
     static ArrayList<Proyecto> losProyectos = new ArrayList<>();
     static ArrayList<Cliente> losClientes = new ArrayList<>();
 
-    // Componentes gráficos
     private JComboBox<String> cmbOpciones;
     private JButton btnEjecutar;
     private JTextArea txtResultado;
@@ -24,7 +42,7 @@ public class UsaProyecto extends JFrame {
 
     private void initComponents() {
         setTitle("Gestión de Proyectos - POO_Java_TF_Gr2");
-        setSize(750, 520);
+        setSize(760, 520);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
         setLayout(new BorderLayout(10, 10));
@@ -75,7 +93,7 @@ public class UsaProyecto extends JFrame {
         switch (opcion) {
             case 1:
                 losProyectos = registrarProyecto(losProyectos);
-                txtResultado.setText("Proyecto registrado. Total proyectos: " + losProyectos.size());
+                txtResultado.setText("Total proyectos registrados: " + losProyectos.size());
                 break;
             case 2:
                 txtResultado.setText(consultarTodosProyectos(losProyectos));
@@ -91,47 +109,46 @@ public class UsaProyecto extends JFrame {
                 break;
             case 6:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto (ej. 2026-001):");
-                txtResultado.setText(consultarProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(consultarProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 7:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(consultarGerenteProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(consultarGerenteProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 8:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(consultarEquipoProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(consultarEquipoProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 9:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(registrarIntegranteProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(registrarIntegranteProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 10:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(registrarEquipoProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(registrarEquipoProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 11:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(actualizarEstadoProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(actualizarEstadoProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 12:
                 cod = JOptionPane.showInputDialog(this, "Ingrese código del proyecto:");
-                txtResultado.setText(eliminarIntegranteProyectoDadoCodigo(losProyectos, cod));
+                if (cod != null) txtResultado.setText(eliminarIntegranteProyectoDadoCodigo(losProyectos, cod));
                 break;
             case 13:
                 ide = JOptionPane.showInputDialog(this, "Ingrese identificación del gerente:");
-                txtResultado.setText(consultarProyectosDadoNumIDEGerente(losProyectos, ide));
+                if (ide != null) txtResultado.setText(consultarProyectosDadoNumIDEGerente(losProyectos, ide));
                 break;
             case 14:
                 ide = JOptionPane.showInputDialog(this, "Ingrese identificación del cliente:");
-                txtResultado.setText(consultarProyectosDadoNumIDECliente(losProyectos, ide));
+                if (ide != null) txtResultado.setText(consultarProyectosDadoNumIDECliente(losProyectos, ide));
                 break;
             case 15:
                 tipo = JOptionPane.showInputDialog(this, "Tipo de cliente (Empresa / PersonaNatural):");
-                txtResultado.setText(consultarProyectosDadoTipoCliente(losProyectos, tipo));
+                if (tipo != null) txtResultado.setText(consultarProyectosDadoTipoCliente(losProyectos, tipo));
                 break;
             case 16:
                 generarArchivoDeObjetosProyectos(losProyectos);
-                txtResultado.setText("Proceso de guardado de proyectos finalizado.");
                 break;
             case 17:
                 losProyectos = leerArchivoDeObjetosProyectos();
@@ -139,7 +156,6 @@ public class UsaProyecto extends JFrame {
                 break;
             case 18:
                 generarArchivoDeObjetosClientes(losProyectos);
-                txtResultado.setText("Proceso de guardado de clientes finalizado.");
                 break;
             case 19:
                 losClientes = leerArchivoDeObjetosClientes();
@@ -171,46 +187,67 @@ public class UsaProyecto extends JFrame {
         if (datos == null) {
             datos = new ArrayList<>();
         }
-        String codigo = generarCodigoProyecto(datos);
-        String titulo = JOptionPane.showInputDialog("Código asignado: " + codigo + "\nTítulo del proyecto (20-100 caracteres):");
-        LocalDate fechaInicio = LocalDate.parse(JOptionPane.showInputDialog("Fecha de inicio (aaaa-mm-dd):"));
-        String unidadDuracion = JOptionPane.showInputDialog("Unidad de duración (semanas, meses, años):");
-        byte duracionEstimada = Byte.parseByte(JOptionPane.showInputDialog("Duración estimada:"));
+        try {
+            String codigo = generarCodigoProyecto(datos);
+            String titulo = JOptionPane.showInputDialog("Código asignado: " + codigo + "\nTítulo del proyecto (20-100 caracteres):");
+            if (titulo == null) return datos;
 
-        // Datos del Cliente
-        String tipoCliente = JOptionPane.showInputDialog("Tipo de cliente (1: Empresa, 2: Persona Natural):");
-        String idCliente = JOptionPane.showInputDialog("Identificación del cliente:");
-        String nomCliente = JOptionPane.showInputDialog("Nombre del cliente:");
-        String ciudadCliente = JOptionPane.showInputDialog("Ciudad del cliente:");
-        Cliente cliente;
+            String fechaStr = JOptionPane.showInputDialog("Fecha de inicio (aaaa-mm-dd):");
+            if (fechaStr == null) return datos;
+            LocalDate fechaInicio = LocalDate.parse(fechaStr.trim());
 
-        if ("1".equals(tipoCliente)) {
-            String nomContacto = JOptionPane.showInputDialog("Nombre completo del contacto:");
-            String cargoContacto = JOptionPane.showInputDialog("Cargo del contacto:");
-            String telContacto = JOptionPane.showInputDialog("Teléfono del contacto:");
-            String mailContacto = JOptionPane.showInputDialog("Correo del contacto:");
-            Contacto contacto = new Contacto(nomContacto, cargoContacto, telContacto, mailContacto);
-            cliente = new Empresa(idCliente, nomCliente, ciudadCliente, contacto);
-        } else {
-            String telNat = JOptionPane.showInputDialog("Teléfono:");
-            String mailNat = JOptionPane.showInputDialog("Correo electrónico:");
-            cliente = new PersonaNatural(idCliente, nomCliente, ciudadCliente, telNat, mailNat);
+            String unidadDuracion = JOptionPane.showInputDialog("Unidad de duración (semanas, meses, años):");
+            if (unidadDuracion == null) return datos;
+
+            String durStr = JOptionPane.showInputDialog("Duración estimada:");
+            if (durStr == null) return datos;
+            byte duracionEstimada = Byte.parseByte(durStr.trim());
+
+            String tipoCliente = JOptionPane.showInputDialog("Tipo de cliente (1: Empresa, 2: Persona Natural):");
+            if (tipoCliente == null) return datos;
+
+            String idCliente = JOptionPane.showInputDialog("Identificación del cliente:");
+            String nomCliente = JOptionPane.showInputDialog("Nombre del cliente:");
+            String ciudadCliente = JOptionPane.showInputDialog("Ciudad del cliente:");
+            if (idCliente == null || nomCliente == null || ciudadCliente == null) return datos;
+
+            Cliente cliente;
+            if ("1".equals(tipoCliente.trim())) {
+                String nomContacto = JOptionPane.showInputDialog("Nombre completo del contacto:");
+                String cargoContacto = JOptionPane.showInputDialog("Cargo del contacto:");
+                String telContacto = JOptionPane.showInputDialog("Teléfono del contacto:");
+                String mailContacto = JOptionPane.showInputDialog("Correo del contacto:");
+                Contacto contacto = new Contacto(nomContacto, cargoContacto, telContacto, mailContacto);
+                cliente = new Empresa(contacto, idCliente, nomCliente, ciudadCliente);
+            } else {
+                String telNat = JOptionPane.showInputDialog("Teléfono del cliente:");
+                String mailNat = JOptionPane.showInputDialog("Correo electrónico del cliente:");
+                // Si PersonaNatural recibe primero los datos de Cliente, invierte el orden a: (idCliente, nomCliente, ciudadCliente, telNat, mailNat)
+                cliente = new PersonaNatural(telNat, mailNat, idCliente, nomCliente, ciudadCliente);
+            }
+
+            Empleado gerente = solicitarDatosEmpleado("GERENTE");
+            if (gerente == null) return datos;
+
+            Proyecto nuevo = new Proyecto(codigo, titulo, fechaInicio, unidadDuracion, duracionEstimada, cliente, gerente, "INICIADO");
+            datos.add(nuevo);
+            JOptionPane.showMessageDialog(null, "Proyecto " + codigo + " registrado con éxito.");
+        } catch (DateTimeParseException | NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Error en el formato de fecha o número ingresado: " + e.getMessage());
         }
-
-        // Datos del Gerente
-        Empleado gerente = solicitarDatosEmpleado("GERENTE");
-
-        // Constructor sin equipo (estado por defecto INICIADO)
-        Proyecto nuevo = new Proyecto(codigo, titulo, fechaInicio, unidadDuracion, duracionEstimada, cliente, gerente);
-        datos.add(nuevo);
         return datos;
     }
 
     private static Empleado solicitarDatosEmpleado(String rol) {
         String id = JOptionPane.showInputDialog("Identificación del " + rol + ":");
+        if (id == null) return null;
         String nombre = JOptionPane.showInputDialog("Nombre completo del " + rol + ":");
+        if (nombre == null) return null;
         String tituloProf = JOptionPane.showInputDialog("Título profesional del " + rol + ":");
-        byte exp = Byte.parseByte(JOptionPane.showInputDialog("Años de experiencia del " + rol + ":"));
+        if (tituloProf == null) return null;
+        String expStr = JOptionPane.showInputDialog("Años de experiencia del " + rol + ":");
+        if (expStr == null) return null;
+        byte exp = Byte.parseByte(expStr.trim());
         return new Empleado(id, nombre, tituloProf, exp);
     }
 
@@ -308,9 +345,14 @@ public class UsaProyecto extends JFrame {
         }
         for (Proyecto p : datos) {
             if (p.getCodigo().equalsIgnoreCase(codigoProyecto)) {
-                Empleado nuevo = solicitarDatosEmpleado("INTEGRANTE");
-                p.agregarIntegrante(nuevo);
-                return "Integrante agregado exitosamente al proyecto " + codigoProyecto;
+                try {
+                    Empleado nuevo = solicitarDatosEmpleado("INTEGRANTE");
+                    if (nuevo == null) return "Registro de integrante cancelado.";
+                    p.agregarIntegrante(nuevo);
+                    return "Integrante agregado exitosamente al proyecto " + codigoProyecto;
+                } catch (NumberFormatException e) {
+                    return "Error en los años de experiencia ingresados.";
+                }
             }
         }
         return "No se encontró un proyecto con el código " + codigoProyecto;
@@ -322,13 +364,22 @@ public class UsaProyecto extends JFrame {
         }
         for (Proyecto p : datos) {
             if (p.getCodigo().equalsIgnoreCase(codigoProyecto)) {
-                int cantidad = Integer.parseInt(JOptionPane.showInputDialog("¿Cuántos integrantes desea registrar?"));
-                ArrayList<Empleado> equipo = new ArrayList<>();
-                for (int i = 1; i <= cantidad; i++) {
-                    equipo.add(solicitarDatosEmpleado("INTEGRANTE " + i));
+                try {
+                    String cantStr = JOptionPane.showInputDialog("¿Cuántos integrantes desea registrar?");
+                    if (cantStr == null) return "Registro de equipo cancelado.";
+                    int cantidad = Integer.parseInt(cantStr.trim());
+                    ArrayList<Empleado> equipo = new ArrayList<>();
+                    for (int i = 1; i <= cantidad; i++) {
+                        Empleado emp = solicitarDatosEmpleado("INTEGRANTE " + i);
+                        if (emp != null) {
+                            equipo.add(emp);
+                        }
+                    }
+                    p.setSuEquipo(equipo);
+                    return "Equipo de " + equipo.size() + " integrantes registrado en el proyecto " + codigoProyecto;
+                } catch (NumberFormatException e) {
+                    return "Error en el número ingresado.";
                 }
-                p.setSuEquipo(equipo);
-                return "Equipo de " + cantidad + " integrantes registrado en el proyecto " + codigoProyecto;
             }
         }
         return "No se encontró un proyecto con el código " + codigoProyecto;
@@ -343,7 +394,8 @@ public class UsaProyecto extends JFrame {
                 String nuevoEstado = JOptionPane.showInputDialog(
                         "Estado actual: " + p.getEstado()
                         + "\nNuevo estado (INICIADO, EN CURSO, CANCELADO, FINALIZADO, SUSPENDIDO, APLAZADO):");
-                p.setEstado(nuevoEstado.toUpperCase());
+                if (nuevoEstado == null) return "Actualización cancelada.";
+                p.setEstado(nuevoEstado.trim().toUpperCase());
                 return "Estado actualizado a " + p.getEstado() + " para el proyecto " + codigoProyecto;
             }
         }
@@ -357,6 +409,7 @@ public class UsaProyecto extends JFrame {
         for (Proyecto p : datos) {
             if (p.getCodigo().equalsIgnoreCase(codigoProyecto)) {
                 String idEmpleado = JOptionPane.showInputDialog("Ingrese identificación del integrante a retirar:");
+                if (idEmpleado == null) return "Operación cancelada.";
                 Empleado eliminado = p.eliminarIntegrante(idEmpleado);
                 if (eliminado != null) {
                     return "Se retiró del proyecto a: " + eliminado.getNombreCompleto();
@@ -440,6 +493,8 @@ public class UsaProyecto extends JFrame {
             }
         } catch (EOFException eof) {
             // Fin normal del archivo
+        } catch (FileNotFoundException fnf) {
+            JOptionPane.showMessageDialog(null, "El archivo 'datosProyectos' aún no existe.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al leer 'datosProyectos': " + e.getMessage());
         }
@@ -479,6 +534,8 @@ public class UsaProyecto extends JFrame {
             }
         } catch (EOFException eof) {
             // Fin normal del archivo
+        } catch (FileNotFoundException fnf) {
+            JOptionPane.showMessageDialog(null, "El archivo 'datosClientes' aún no existe.");
         } catch (Exception e) {
             JOptionPane.showMessageDialog(null, "Error al leer 'datosClientes': " + e.getMessage());
         }
