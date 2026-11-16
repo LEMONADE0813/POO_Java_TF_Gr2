@@ -9,8 +9,7 @@ import java.util.ArrayList;
 
 /**
  *
- * @author Miguel Andrés García Castaño (1107057050)
- * @version 1.0 - nov. 15 2026
+ * @author Gundi
  */
 public class Proyecto {
     private String codigo;
@@ -122,7 +121,7 @@ public class Proyecto {
     public String toString() {
         return "Proyecto{" 
                 + "codigo=" 
-                + codigo
+                + codigo 
                 + ", titulo=" 
                 + titulo 
                 + ", fechaInicio=" 
@@ -147,10 +146,12 @@ public class Proyecto {
     }
     
     public void agregarIntegrante(Empleado nuevoIntegrante) {
+     
     }
     
-    public Empleado eliminarIntegrante(String numeroIdenteificacion) {
+    public Empleado eliminarIntegrante(String numeroIdentificacion) {
         return null;
     }
+    
     
 }
