@@ -4,13 +4,79 @@
  */
 package Vista;
 
+import Modelo.Proyecto;
+import java.time.DateTimeException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author SamuelOT
  */
 public class RegistrarProyecto extends javax.swing.JFrame {
     
-    private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(RegistrarProyecto.class.getName());
+    private ArrayList<Proyecto> losProyectos = new ArrayList<>();
+    boolean registroValido = true;
+    
+    public static String generarCodigoProyecto(ArrayList<Proyecto> datos) {
+        int anioActual = LocalDate.now().getYear();
+        int consecutivo = 1;
+        if (datos != null) {
+            for (Proyecto p : datos) {
+                if (p.getCodigo() != null && p.getCodigo().startsWith(anioActual + "-")) {
+                    consecutivo++;
+                }
+            }
+        }
+        return String.format("%d-%03d", anioActual, consecutivo);
+    }
+    
+    
+    public ArrayList<Proyecto> registrarProyecto(ArrayList<Proyecto> losProyectos){
+        String codigo;
+        String titulo;
+        LocalDate fechaInicio;
+        String unidadDuracion;
+        byte duracionEstimada = 0;
+        String suCliente = null;
+        String suGerente = null;
+        String suEquipo = null;
+        String estado = null;
+        
+        codigo = generarCodigoProyecto(losProyectos);
+        titulo = jTextTitulo.getText();
+        if(titulo.isEmpty() || titulo.isBlank() || titulo.length()<20 || titulo.length()>100){
+            JOptionPane.showMessageDialog(null, "Error, campo vacío o longitud incorrecta.", "NOMBRE: ENTRADA INVÁLIDA", JOptionPane.ERROR_MESSAGE);
+            registroValido = false;
+        }
+        try{
+        fechaInicio = LocalDate.parse(jTextFechaInicio.getText());
+        }catch(DateTimeException  nfex){
+            JOptionPane.showMessageDialog(null, "Operación fallida: entrada inválida por formato incorrecto.\n" 
+                                        + nfex.toString(), "REGISTRAR PERSONA: fecha nacimiento", JOptionPane.ERROR_MESSAGE);
+            registroValido = false;
+        }
+        unidadDuracion = jTextUnidadDuracion.getText();
+        if(unidadDuracion.isEmpty() || unidadDuracion.isBlank()){
+            JOptionPane.showMessageDialog(null, "Error, campo vacío o longitud incorrecta.", "NOMBRE: ENTRADA INVÁLIDA", JOptionPane.ERROR_MESSAGE);
+            registroValido = false;
+        }else if (unidadDuracion.equals("semanas") || unidadDuracion.equals("Semanas")|| unidadDuracion.equals("meses")|| unidadDuracion.equals("Meses")|| unidadDuracion.equals("años")|| unidadDuracion.equals("Años")){
+            registroValido = true;
+        }else{
+            JOptionPane.showMessageDialog(null, "Error, no pusiste lo que se indico, sigue las indicaciones y no uses siempre mayusculas", "NOMBRE: ENTRADA INVÁLIDA", JOptionPane.ERROR_MESSAGE);
+            registroValido = false;
+        }
+        try{
+            duracionEstimada = Byte.parseByte(jTextDuracion.getText());
+        } catch(NumberFormatException nfex){
+            JOptionPane.showMessageDialog(null, "Error en tipo de dato", "PROMEDIO: ENTRADA INVÁLIDA", JOptionPane.ERROR_MESSAGE);
+            registroValido = false;
+        }
+        
+        return losProyectos;
+        
+    }
 
     /**
      * Creates new form RegistrarProyecto
@@ -31,20 +97,21 @@ public class RegistrarProyecto extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
+        jTextTitulo = new javax.swing.JTextField();
+        jTextFechaInicio = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
-        jTextField3 = new javax.swing.JTextField();
+        jTextUnidadDuracion = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jTextField4 = new javax.swing.JTextField();
         jLabel6 = new javax.swing.JLabel();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
-        jTextField5 = new javax.swing.JTextField();
+        jTextDuracion = new javax.swing.JTextField();
         jTextField6 = new javax.swing.JTextField();
         jTextField7 = new javax.swing.JTextField();
         jLabel9 = new javax.swing.JLabel();
         jTextField8 = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -55,15 +122,15 @@ public class RegistrarProyecto extends javax.swing.JFrame {
 
         jLabel3.setText("Fecha de inicio:");
 
-        jTextField1.setText("Entre 20 y 100 caracteres");
-        jTextField1.addActionListener(this::jTextField1ActionPerformed);
+        jTextTitulo.setText("Entre 20 y 100 caracteres");
+        jTextTitulo.addActionListener(this::jTextTituloActionPerformed);
 
-        jTextField2.setText("aaaa-mm-dd");
-        jTextField2.addActionListener(this::jTextField2ActionPerformed);
+        jTextFechaInicio.setText("aaaa-mm-dd");
+        jTextFechaInicio.addActionListener(this::jTextFechaInicioActionPerformed);
 
         jLabel4.setText("Unidad duracion:");
 
-        jTextField3.addActionListener(this::jTextField3ActionPerformed);
+        jTextUnidadDuracion.addActionListener(this::jTextUnidadDuracionActionPerformed);
 
         jLabel5.setText("Duracion Estimada:");
 
@@ -75,7 +142,7 @@ public class RegistrarProyecto extends javax.swing.JFrame {
 
         jLabel8.setText("Equipo:");
 
-        jTextField5.addActionListener(this::jTextField5ActionPerformed);
+        jTextDuracion.addActionListener(this::jTextDuracionActionPerformed);
 
         jTextField6.addActionListener(this::jTextField6ActionPerformed);
 
@@ -84,6 +151,9 @@ public class RegistrarProyecto extends javax.swing.JFrame {
         jLabel9.setText("Estado:");
 
         jTextField8.addActionListener(this::jTextField8ActionPerformed);
+
+        jButton1.setText("Agregar");
+        jButton1.addActionListener(this::jButton1ActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -108,18 +178,21 @@ public class RegistrarProyecto extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(17, 17, 17)
-                                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(jTextTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, 299, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(18, 18, 18)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jTextField3)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
+                                    .addComponent(jTextUnidadDuracion)
+                                    .addComponent(jTextFechaInicio, javax.swing.GroupLayout.DEFAULT_SIZE, 299, Short.MAX_VALUE)
                                     .addComponent(jTextField4)
-                                    .addComponent(jTextField5)
+                                    .addComponent(jTextDuracion)
                                     .addComponent(jTextField6, javax.swing.GroupLayout.Alignment.TRAILING)
                                     .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(jTextField8))))))
-                .addContainerGap(108, Short.MAX_VALUE))
+                                    .addComponent(jTextField8)))))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(65, 65, 65)
+                        .addComponent(jButton1)))
+                .addContainerGap(17, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -129,19 +202,19 @@ public class RegistrarProyecto extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextTitulo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextFechaInicio, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextUnidadDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel5)
-                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextDuracion, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel6)
@@ -158,31 +231,33 @@ public class RegistrarProyecto extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel9)
                     .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(182, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jButton1)
+                .addContainerGap(41, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void jTextTituloActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextTituloActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_jTextTituloActionPerformed
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void jTextFechaInicioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFechaInicioActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_jTextFechaInicioActionPerformed
 
-    private void jTextField3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField3ActionPerformed
+    private void jTextUnidadDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextUnidadDuracionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField3ActionPerformed
+    }//GEN-LAST:event_jTextUnidadDuracionActionPerformed
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField4ActionPerformed
 
-    private void jTextField5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField5ActionPerformed
+    private void jTextDuracionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextDuracionActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField5ActionPerformed
+    }//GEN-LAST:event_jTextDuracionActionPerformed
 
     private void jTextField6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField6ActionPerformed
         // TODO add your handling code here:
@@ -196,32 +271,19 @@ public class RegistrarProyecto extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField8ActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     /**
      * @param args the command line arguments
      */
     public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ReflectiveOperationException | javax.swing.UnsupportedLookAndFeelException ex) {
-            logger.log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> new RegistrarProyecto().setVisible(true));
+        
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -231,13 +293,13 @@ public class RegistrarProyecto extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
+    private javax.swing.JTextField jTextDuracion;
+    private javax.swing.JTextField jTextFechaInicio;
     private javax.swing.JTextField jTextField4;
-    private javax.swing.JTextField jTextField5;
     private javax.swing.JTextField jTextField6;
     private javax.swing.JTextField jTextField7;
     private javax.swing.JTextField jTextField8;
+    private javax.swing.JTextField jTextTitulo;
+    private javax.swing.JTextField jTextUnidadDuracion;
     // End of variables declaration//GEN-END:variables
 }
