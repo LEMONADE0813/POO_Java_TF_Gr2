@@ -33,11 +33,11 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonRegistrarProyecto = new javax.swing.JButton();
+        jButtonRegistrarIntegrante = new javax.swing.JButton();
+        jButtonRegistrarEquipo = new javax.swing.JButton();
+        jButtonEliminarIntegrante = new javax.swing.JButton();
+        jButtonActualizarEstado = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
@@ -76,18 +76,18 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
 
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
-        jButton1.setText("Registrar proyecto ");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButtonRegistrarProyecto.setText("Registrar proyecto ");
+        jButtonRegistrarProyecto.addActionListener(this::jButtonRegistrarProyectoActionPerformed);
 
-        jButton3.setText("Registrar integrante ");
+        jButtonRegistrarIntegrante.setText("Registrar integrante ");
 
-        jButton4.setText("Registrar equipo ");
+        jButtonRegistrarEquipo.setText("Registrar equipo ");
 
-        jButton5.setText("Eliminar integrante ");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
+        jButtonEliminarIntegrante.setText("Eliminar integrante ");
+        jButtonEliminarIntegrante.addActionListener(this::jButtonEliminarIntegranteActionPerformed);
 
-        jButton6.setText("Actualizar estado ");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
+        jButtonActualizarEstado.setText("Actualizar estado ");
+        jButtonActualizarEstado.addActionListener(this::jButtonActualizarEstadoActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,15 +105,15 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonRegistrarProyecto)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonRegistrarIntegrante)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonRegistrarEquipo)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
+                        .addComponent(jButtonEliminarIntegrante)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                        .addComponent(jButtonActualizarEstado)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -127,11 +127,11 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(jButtonRegistrarProyecto)
+                    .addComponent(jButtonRegistrarIntegrante)
+                    .addComponent(jButtonRegistrarEquipo)
+                    .addComponent(jButtonEliminarIntegrante)
+                    .addComponent(jButtonActualizarEstado))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -286,17 +286,17 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRegistrarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarProyectoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRegistrarProyectoActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonEliminarIntegranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarIntegranteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonEliminarIntegranteActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonActualizarEstadoActionPerformed
 
     private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
         // TODO add your handling code here:
@@ -332,17 +332,17 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonActualizarEstado;
+    private javax.swing.JButton jButtonEliminarIntegrante;
+    private javax.swing.JButton jButtonRegistrarEquipo;
+    private javax.swing.JButton jButtonRegistrarIntegrante;
+    private javax.swing.JButton jButtonRegistrarProyecto;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

@@ -103,15 +103,15 @@
                       </Group>
                       <Group type="102" attributes="0">
                           <EmptySpace min="-2" pref="76" max="-2" attributes="0"/>
-                          <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonRegistrarProyecto" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonRegistrarIntegrante" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton4" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonRegistrarEquipo" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton5" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonEliminarIntegrante" min="-2" max="-2" attributes="0"/>
                           <EmptySpace type="separate" max="-2" attributes="0"/>
-                          <Component id="jButton6" min="-2" max="-2" attributes="0"/>
+                          <Component id="jButtonActualizarEstado" min="-2" max="-2" attributes="0"/>
                       </Group>
                   </Group>
                   <EmptySpace max="32767" attributes="0"/>
@@ -130,11 +130,11 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="3" attributes="0">
-                      <Component id="jButton1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton3" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton4" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton6" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonRegistrarProyecto" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonRegistrarIntegrante" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonRegistrarEquipo" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonEliminarIntegrante" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jButtonActualizarEstado" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace pref="35" max="32767" attributes="0"/>
               </Group>
@@ -163,38 +163,38 @@
             <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton1">
+        <Component class="javax.swing.JButton" name="jButtonRegistrarProyecto">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar proyecto "/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton1ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonRegistrarProyectoActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton3">
+        <Component class="javax.swing.JButton" name="jButtonRegistrarIntegrante">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar integrante "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton4">
+        <Component class="javax.swing.JButton" name="jButtonRegistrarEquipo">
           <Properties>
             <Property name="text" type="java.lang.String" value="Registrar equipo "/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton5">
+        <Component class="javax.swing.JButton" name="jButtonEliminarIntegrante">
           <Properties>
             <Property name="text" type="java.lang.String" value="Eliminar integrante "/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton5ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonEliminarIntegranteActionPerformed"/>
           </Events>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton6">
+        <Component class="javax.swing.JButton" name="jButtonActualizarEstado">
           <Properties>
             <Property name="text" type="java.lang.String" value="Actualizar estado "/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButton6ActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jButtonActualizarEstadoActionPerformed"/>
           </Events>
         </Component>
       </SubComponents>
