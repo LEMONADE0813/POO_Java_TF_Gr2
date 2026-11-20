@@ -4,11 +4,13 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jposp
  */
-public final class Empresa extends Cliente {
+public final class Empresa extends Cliente implements Serializable {
     private Contacto suContacto;
 
     public Empresa(Contacto suContacto, String numeroIdentificacion, String nombre, String nombreCiudad) {

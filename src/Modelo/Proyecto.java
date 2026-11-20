@@ -4,6 +4,7 @@
  */
 package Modelo;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
  *
  * @author Gundi
  */
-public class Proyecto {
+public class Proyecto implements Serializable{
     private String codigo;
     private String titulo;
     private LocalDate fechaInicio;
