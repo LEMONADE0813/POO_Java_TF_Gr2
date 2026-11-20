@@ -6,6 +6,7 @@ package Vista;
 
 import Modelo.Empleado;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,53 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
         String tituloProfesional;
         byte aniosExperiencia = 0;
         
-        return null;
+        boolean entradaInvalida = false;
+        String msgEntradaInvalida = "¡Operación fallida!.\nEntrada inválida.";
+        
+        numeroIdentificacion = jTextFieldNumeroIde.getText();        
+        if(numeroIdentificacion.isEmpty() || numeroIdentificacion.isBlank()){
+            entradaInvalida = true;           
+            msgEntradaInvalida += "\n Numero Identificacion: vacio, Obligatorio";
+        }
+        
+        nombreCompleto = jTextFieldNombreCompleto.getText();        
+        if(nombreCompleto.isEmpty() || nombreCompleto.isBlank()){
+            entradaInvalida = true;           
+            msgEntradaInvalida += "\n Nombre Completo: vacio, Obligatorio";
+        }
+        
+        tituloProfesional = jTextFieldTituloProfesional.getText();        
+        if(tituloProfesional.isEmpty() || tituloProfesional.isBlank()){
+            entradaInvalida = true;           
+            msgEntradaInvalida += "\n Nombre Completo: vacio, Obligatorio";
+        }
+        
+        try{
+            aniosExperiencia = Byte.parseByte(jTextFieldAniosProfesional.getText());
+        } catch(NumberFormatException ex){
+            entradaInvalida = true;
+            msgEntradaInvalida += "\nAños Experiencia: error formato." + ex.getMessage();
+        }
+        
+        if(entradaInvalida){
+            JOptionPane.showMessageDialog(null, msgEntradaInvalida, "REGISTRO", JOptionPane.ERROR_MESSAGE);
+            
+        }else{
+            Empleado objeto = null;
+            objeto = new Empleado (numeroIdentificacion, nombreCompleto, tituloProfesional, aniosExperiencia);
+            losEmpleados.add(objeto);
+            JOptionPane.showMessageDialog(null, "¡Operación exitosa!. Si desea puede Salir o continuar registrando Empleados", "REGISTRO", JOptionPane.INFORMATION_MESSAGE);
+        }
+        
+        
+        return losEmpleados;
+    }
+    
+    public void inicializarEntradasRegistro(){
+        jTextFieldNumeroIde.setText("");
+        jTextFieldNombreCompleto.setText("");
+        jTextFieldTituloProfesional.setText("");
+        jTextFieldAniosProfesional.setText("");
     }
 
     /**
@@ -45,17 +92,16 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        jButtonRegistrar = new javax.swing.JButton();
         jTextFieldNumeroIde = new javax.swing.JTextField();
         jTextFieldNombreCompleto = new javax.swing.JTextField();
         jTextFieldTituloProfesional = new javax.swing.JTextField();
         jTextFieldAniosProfesional = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        jButtonSalir = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel1.setText("Registro Empleado");
 
         jLabel2.setText("Numero de Identificación:");
@@ -66,17 +112,17 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
 
         jLabel5.setText("Años profesional:");
 
-        jButton1.setText("Registrar ");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButtonRegistrar.setText("Registrar ");
+        jButtonRegistrar.addActionListener(this::jButtonRegistrarActionPerformed);
 
         jTextFieldNumeroIde.addActionListener(this::jTextFieldNumeroIdeActionPerformed);
 
         jTextFieldTituloProfesional.addActionListener(this::jTextFieldTituloProfesionalActionPerformed);
 
-        jButton2.setText("Salir");
-        jButton2.addActionListener(this::jButton2ActionPerformed);
+        jTextFieldAniosProfesional.addActionListener(this::jTextFieldAniosProfesionalActionPerformed);
 
-        jButton3.setText("Registrar otro Empleado");
+        jButtonSalir.setText("Salir");
+        jButtonSalir.addActionListener(this::jButtonSalirActionPerformed);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -104,13 +150,12 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
                                         .addComponent(jTextFieldTituloProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
                                         .addComponent(jTextFieldNombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addComponent(jTextFieldAniosProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
+                                .addGap(0, 57, Short.MAX_VALUE))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jButton1)
-                                .addGap(41, 41, 41)
-                                .addComponent(jButton3)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
-                                .addComponent(jButton2)))))
+                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jButtonRegistrar)
+                                .addGap(101, 101, 101)
+                                .addComponent(jButtonSalir)))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -136,18 +181,18 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
                     .addComponent(jTextFieldAniosProfesional, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton2)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(jButtonSalir)
+                    .addComponent(jButtonRegistrar))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed
+        losEmpleados = registrarEmpleado(losEmpleados);
+        inicializarEntradasRegistro();
+    }//GEN-LAST:event_jButtonRegistrarActionPerformed
 
     private void jTextFieldNumeroIdeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNumeroIdeActionPerformed
         // TODO add your handling code here:
@@ -157,9 +202,15 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldTituloProfesionalActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
+        JOptionPane.showMessageDialog(null, "Saliendo del Sistema");
+        inicializarEntradasRegistro();
+        System.exit(0);
+    }//GEN-LAST:event_jButtonSalirActionPerformed
+
+    private void jTextFieldAniosProfesionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldAniosProfesionalActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_jTextFieldAniosProfesionalActionPerformed
 
     /**
      * @param args the command line arguments
@@ -187,9 +238,8 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton jButtonRegistrar;
+    private javax.swing.JButton jButtonSalir;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
