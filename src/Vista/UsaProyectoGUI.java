@@ -33,25 +33,25 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
+        jButtonRegistrarProyecto = new javax.swing.JButton();
+        jButtonRegistrarIntegrante = new javax.swing.JButton();
+        jButtonRegistrarEquipo = new javax.swing.JButton();
+        jButtonEliminarIntegrante = new javax.swing.JButton();
+        jButtonActualizarEstado = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jComboBox1 = new javax.swing.JComboBox<>();
-        jButton7 = new javax.swing.JButton();
+        jButtonEjecutar = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jLabel4 = new javax.swing.JLabel();
-        jButton8 = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
-        jButton11 = new javax.swing.JButton();
+        jButtonGenerarAchivoProyectos = new javax.swing.JButton();
+        jButtonGenerarArchivoClientes = new javax.swing.JButton();
+        jButtonLeerArchivoProyecto = new javax.swing.JButton();
+        jButtonLeerArchivoCliente = new javax.swing.JButton();
         jPanel5 = new javax.swing.JPanel();
+        jButton2 = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
-        jButton2 = new javax.swing.JButton();
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -76,18 +76,20 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
 
         jTextField1.addActionListener(this::jTextField1ActionPerformed);
 
-        jButton1.setText("Registrar proyecto ");
-        jButton1.addActionListener(this::jButton1ActionPerformed);
+        jButtonRegistrarProyecto.setText("Registrar proyecto ");
+        jButtonRegistrarProyecto.addActionListener(this::jButtonRegistrarProyectoActionPerformed);
 
-        jButton3.setText("Registrar integrante ");
+        jButtonRegistrarIntegrante.setText("Registrar integrante ");
+        jButtonRegistrarIntegrante.addActionListener(this::jButtonRegistrarIntegranteActionPerformed);
 
-        jButton4.setText("Registrar equipo ");
+        jButtonRegistrarEquipo.setText("Registrar equipo ");
+        jButtonRegistrarEquipo.addActionListener(this::jButtonRegistrarEquipoActionPerformed);
 
-        jButton5.setText("Eliminar integrante ");
-        jButton5.addActionListener(this::jButton5ActionPerformed);
+        jButtonEliminarIntegrante.setText("Eliminar integrante ");
+        jButtonEliminarIntegrante.addActionListener(this::jButtonEliminarIntegranteActionPerformed);
 
-        jButton6.setText("Actualizar estado ");
-        jButton6.addActionListener(this::jButton6ActionPerformed);
+        jButtonActualizarEstado.setText("Actualizar estado ");
+        jButtonActualizarEstado.addActionListener(this::jButtonActualizarEstadoActionPerformed);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -105,15 +107,15 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 255, javax.swing.GroupLayout.PREFERRED_SIZE))))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(76, 76, 76)
-                        .addComponent(jButton1)
+                        .addComponent(jButtonRegistrarProyecto)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton3)
+                        .addComponent(jButtonRegistrarIntegrante)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton4)
+                        .addComponent(jButtonRegistrarEquipo)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton5)
+                        .addComponent(jButtonEliminarIntegrante)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton6)))
+                        .addComponent(jButtonActualizarEstado)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -124,14 +126,14 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 20, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton3)
-                    .addComponent(jButton4)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
+                    .addComponent(jButtonRegistrarProyecto)
+                    .addComponent(jButtonRegistrarIntegrante)
+                    .addComponent(jButtonRegistrarEquipo)
+                    .addComponent(jButtonEliminarIntegrante)
+                    .addComponent(jButtonActualizarEstado))
                 .addContainerGap(35, Short.MAX_VALUE))
         );
 
@@ -143,7 +145,8 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Consultar todos los proyectos", "Consultar los proyectos en curso", "Consultar el primer proyecto registrado", "Consultar el último proyecto registrado", "Consultar un proyecto (dato: código)", "Consultar el gerente de un proyecto (dato: código)", "Consultar el equipo de un proyecto (dato: código)", "Consultar los proyectos de un gerente (dato: identificación)", "Consultar los proyectos de un cliente (dato: identificación)", "Consultar los proyectos por tipo de cliente (dato: Empresa o PersonaNatural)" }));
         jComboBox1.addActionListener(this::jComboBox1ActionPerformed);
 
-        jButton7.setText("Ejecutar ");
+        jButtonEjecutar.setText("Ejecutar ");
+        jButtonEjecutar.addActionListener(this::jButtonEjecutarActionPerformed);
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -158,7 +161,7 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                         .addGap(117, 117, 117)
                         .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 527, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jButtonEjecutar, javax.swing.GroupLayout.PREFERRED_SIZE, 91, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -168,7 +171,7 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                 .addComponent(jLabel3)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton7)
+                    .addComponent(jButtonEjecutar)
                     .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -178,14 +181,30 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel4.setText("Archivos de objetos ");
 
-        jButton8.setText("Generar archivo de proyectos ");
+        jButtonGenerarAchivoProyectos.setText("Generar archivo de proyectos ");
+        jButtonGenerarAchivoProyectos.addActionListener(this::jButtonGenerarAchivoProyectosActionPerformed);
 
-        jButton9.setText("Generar archivo de clientes ");
-        jButton9.addActionListener(this::jButton9ActionPerformed);
+        jButtonGenerarArchivoClientes.setText("Generar archivo de clientes ");
+        jButtonGenerarArchivoClientes.addActionListener(this::jButtonGenerarArchivoClientesActionPerformed);
 
-        jButton10.setText("Leer archivo de proyectos ");
+        jButtonLeerArchivoProyecto.setText("Leer archivo de proyectos ");
+        jButtonLeerArchivoProyecto.addActionListener(this::jButtonLeerArchivoProyectoActionPerformed);
 
-        jButton11.setText("Leer archivo de clientes ");
+        jButtonLeerArchivoCliente.setText("Leer archivo de clientes ");
+        jButtonLeerArchivoCliente.addActionListener(this::jButtonLeerArchivoClienteActionPerformed);
+
+        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
+
+        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
+        jPanel5.setLayout(jPanel5Layout);
+        jPanel5Layout.setHorizontalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel5Layout.setVerticalGroup(
+            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 295, Short.MAX_VALUE)
+        );
 
         javax.swing.GroupLayout jPanel4Layout = new javax.swing.GroupLayout(jPanel4);
         jPanel4.setLayout(jPanel4Layout);
@@ -198,14 +217,18 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                         .addComponent(jLabel4))
                     .addGroup(jPanel4Layout.createSequentialGroup()
                         .addGap(48, 48, 48)
-                        .addComponent(jButton8)
+                        .addComponent(jButtonGenerarAchivoProyectos)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton9)
+                        .addComponent(jButtonGenerarArchivoClientes)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton10)
+                        .addComponent(jButtonLeerArchivoProyecto)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton11)))
-                .addContainerGap(62, Short.MAX_VALUE))
+                        .addComponent(jButtonLeerArchivoCliente)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(jPanel4Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(28, 28, 28))
         );
         jPanel4Layout.setVerticalGroup(
             jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -214,37 +237,20 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                 .addComponent(jLabel4)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton8)
-                    .addComponent(jButton9)
-                    .addComponent(jButton10)
-                    .addComponent(jButton11))
-                .addContainerGap(39, Short.MAX_VALUE))
-        );
-
-        jPanel5.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
-
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
-
-        javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
-        jPanel5.setLayout(jPanel5Layout);
-        jPanel5Layout.setHorizontalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1)
-                .addContainerGap())
-        );
-        jPanel5Layout.setVerticalGroup(
-            jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 283, Short.MAX_VALUE)
+                    .addComponent(jButtonGenerarAchivoProyectos)
+                    .addComponent(jButtonGenerarArchivoClientes)
+                    .addComponent(jButtonLeerArchivoProyecto)
+                    .addComponent(jButtonLeerArchivoCliente))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 39, Short.MAX_VALUE)
+                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
         jButton2.setText("Salir");
+
+        jTextArea1.setColumns(20);
+        jTextArea1.setRows(5);
+        jScrollPane1.setViewportView(jTextArea1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -255,9 +261,9 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jPanel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap())
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 51, Short.MAX_VALUE))
             .addGroup(layout.createSequentialGroup()
                 .addGap(396, 396, 396)
                 .addComponent(jButton2)
@@ -273,10 +279,10 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jButton2)
-                .addContainerGap(28, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -286,25 +292,49 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void jButtonRegistrarProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarProyectoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_jButtonRegistrarProyectoActionPerformed
 
-    private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
+    private void jButtonEliminarIntegranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEliminarIntegranteActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton5ActionPerformed
+    }//GEN-LAST:event_jButtonEliminarIntegranteActionPerformed
 
-    private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
+    private void jButtonActualizarEstadoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonActualizarEstadoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton6ActionPerformed
+    }//GEN-LAST:event_jButtonActualizarEstadoActionPerformed
 
-    private void jButton9ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton9ActionPerformed
+    private void jButtonGenerarArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarArchivoClientesActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton9ActionPerformed
+    }//GEN-LAST:event_jButtonGenerarArchivoClientesActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jComboBox1ActionPerformed
+
+    private void jButtonRegistrarIntegranteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarIntegranteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRegistrarIntegranteActionPerformed
+
+    private void jButtonRegistrarEquipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarEquipoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonRegistrarEquipoActionPerformed
+
+    private void jButtonEjecutarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonEjecutarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonEjecutarActionPerformed
+
+    private void jButtonGenerarAchivoProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarAchivoProyectosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonGenerarAchivoProyectosActionPerformed
+
+    private void jButtonLeerArchivoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerArchivoProyectoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLeerArchivoProyectoActionPerformed
+
+    private void jButtonLeerArchivoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerArchivoClienteActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonLeerArchivoClienteActionPerformed
 
     /**
      * @param args the command line arguments
@@ -332,17 +362,17 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton11;
     private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton6;
-    private javax.swing.JButton jButton7;
-    private javax.swing.JButton jButton8;
-    private javax.swing.JButton jButton9;
+    private javax.swing.JButton jButtonActualizarEstado;
+    private javax.swing.JButton jButtonEjecutar;
+    private javax.swing.JButton jButtonEliminarIntegrante;
+    private javax.swing.JButton jButtonGenerarAchivoProyectos;
+    private javax.swing.JButton jButtonGenerarArchivoClientes;
+    private javax.swing.JButton jButtonLeerArchivoCliente;
+    private javax.swing.JButton jButtonLeerArchivoProyecto;
+    private javax.swing.JButton jButtonRegistrarEquipo;
+    private javax.swing.JButton jButtonRegistrarIntegrante;
+    private javax.swing.JButton jButtonRegistrarProyecto;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
