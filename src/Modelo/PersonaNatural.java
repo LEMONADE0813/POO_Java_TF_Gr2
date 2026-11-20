@@ -10,28 +10,28 @@ package Modelo;
  */
 public final class PersonaNatural extends Cliente {
     private String numeroTelefono;
-    private String correoElectronico;
+    private String correo;
 
-    public PersonaNatural(String numeroTelefono, String correoElectronico, String numeroIdentificacion, String nombre, String nombreCiudad) {
+    public PersonaNatural(String numeroTelefono, String correo, String numeroIdentificacion, String nombre, String nombreCiudad) {
         super(numeroIdentificacion, nombre, nombreCiudad);
         this.numeroTelefono = numeroTelefono;
-        this.correoElectronico = correoElectronico;
+        this.correo = correo;
     }
 
     public String getNumeroTelefono() {
         return numeroTelefono;
     }
 
-    public String getCorreoElectronico() {
-        return correoElectronico;
+    public String getCorreo() {
+        return correo;
     }
 
     public void setNumeroTelefono(String numeroTelefono) {
         this.numeroTelefono = numeroTelefono;
     }
 
-    public void setCorreoElectronico(String correoElectronico) {
-        this.correoElectronico = correoElectronico;
+    public void setCorreo(String correo) {
+        this.correo = correo;
     }
 
     @Override
@@ -41,7 +41,7 @@ public final class PersonaNatural extends Cliente {
                 + "numeroTelefono="
                 + numeroTelefono 
                 + ", correoElectronico="
-                + correoElectronico 
+                + correo 
                 + '}';
     }
 
