@@ -3,12 +3,23 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package Vista;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+import javax.swing.JOptionPane;
+import Modelo.Proyecto;
+import Modelo.Cliente;
 
 /**
  *
  * @author Gundi
  */
 public class UsaProyectoGUI extends javax.swing.JFrame {
+    
+    private ArrayList<Proyecto> losProyectos = new ArrayList<>();
+    private ArrayList<Cliente> losClientes = new ArrayList<>();
     
     private static final java.util.logging.Logger logger = java.util.logging.Logger.getLogger(UsaProyectoGUI.class.getName());
 
@@ -18,6 +29,124 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
     public UsaProyectoGUI() {
         initComponents();
     }
+    
+    public void generarArchivoProyectos(ArrayList<Proyecto> listaPrincipal) {
+    String nombreArchivo = "datosProyectos.obj";
+    ObjectOutputStream salida = null;
+
+    try {
+        salida = new ObjectOutputStream(new FileOutputStream(nombreArchivo));
+        salida.writeObject(listaPrincipal);
+
+        JOptionPane.showMessageDialog(null, "¡Operación exitosa!\nArchivo generado: " + nombreArchivo,
+                "GENERACIÓN DE ARCHIVO", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError almacenando datos en archivo "
+                + nombreArchivo + "\nRevisar serialización de clases.",
+                "GENERACIÓN DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+
+    } finally {
+        try {
+            if (salida != null) {
+                salida.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError cerrando archivo "
+                    + nombreArchivo, "GENERACIÓN DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+    public void leerArchivoProyectos(ArrayList<Proyecto> listaPrincipal) {
+    String nombreArchivo = "datosProyectos.obj";
+    ObjectInputStream entrada = null;
+    ArrayList<Proyecto> listaNueva = new ArrayList<>();
+
+    try {
+        entrada = new ObjectInputStream(new FileInputStream(nombreArchivo));
+        listaNueva = (ArrayList<Proyecto>) entrada.readObject();
+
+        listaPrincipal.clear();
+        listaPrincipal.addAll(listaNueva);
+
+        JOptionPane.showMessageDialog(null, "¡Operación exitosa!\nArchivo leído: " + nombreArchivo,
+                "LECTURA DE ARCHIVO", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError recuperando datos desde archivo "
+                + nombreArchivo, "LECTURA DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+
+    } finally {
+        try {
+            if (entrada != null) {
+                entrada.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError cerrando archivo "
+                    + nombreArchivo, "LECTURA DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+    public void generarArchivoClientes(ArrayList<Cliente> listaPrincipal) {
+    String nombreArchivo = "datosClientes.obj";
+    ObjectOutputStream salida = null;
+
+    try {
+        salida = new ObjectOutputStream(new FileOutputStream(nombreArchivo));
+        salida.writeObject(listaPrincipal);
+
+        JOptionPane.showMessageDialog(null, "¡Operación exitosa!\nArchivo generado: " + nombreArchivo,
+                "GENERACIÓN DE ARCHIVO", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError almacenando datos en archivo "
+                + nombreArchivo + "\nRevisar serialización de clases.",
+                "GENERACIÓN DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+
+    } finally {
+        try {
+            if (salida != null) {
+                salida.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError cerrando archivo "
+                    + nombreArchivo, "GENERACIÓN DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+
+public void leerArchivoClientes(ArrayList<Cliente> listaPrincipal) {
+    String nombreArchivo = "datosClientes.obj";
+    ObjectInputStream entrada = null;
+    ArrayList<Cliente> listaNueva = new ArrayList<>();
+
+    try {
+        entrada = new ObjectInputStream(new FileInputStream(nombreArchivo));
+        listaNueva = (ArrayList<Cliente>) entrada.readObject();
+
+        listaPrincipal.clear();
+        listaPrincipal.addAll(listaNueva);
+
+        JOptionPane.showMessageDialog(null, "¡Operación exitosa!\nArchivo leído: " + nombreArchivo,
+                "LECTURA DE ARCHIVO", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError recuperando datos desde archivo "
+                + nombreArchivo, "LECTURA DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+
+    } finally {
+        try {
+            if (entrada != null) {
+                entrada.close();
+            }
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(null, "¡Operación fallida!\nError cerrando archivo "
+                    + nombreArchivo, "LECTURA DE ARCHIVO", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+}
+    
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -305,7 +434,14 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonActualizarEstadoActionPerformed
 
     private void jButtonGenerarArchivoClientesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarArchivoClientesActionPerformed
-        // TODO add your handling code here:
+    if (losClientes.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nNo se puede generar el archivo: lista vacía",
+                "GESTIÓN DE PROYECTOS", JOptionPane.WARNING_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(null, "Generando archivo ...",
+                "GESTIÓN DE PROYECTOS", JOptionPane.INFORMATION_MESSAGE);
+        generarArchivoClientes(losClientes);
+    }
     }//GEN-LAST:event_jButtonGenerarArchivoClientesActionPerformed
 
     private void jComboBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBox1ActionPerformed
@@ -325,15 +461,26 @@ public class UsaProyectoGUI extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonEjecutarActionPerformed
 
     private void jButtonGenerarAchivoProyectosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonGenerarAchivoProyectosActionPerformed
-        // TODO add your handling code here:
+    if (losProyectos.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "¡Operación fallida!\nNo se puede generar el archivo: lista vacía",
+                "GESTIÓN DE PROYECTOS", JOptionPane.WARNING_MESSAGE);
+    } else {
+        JOptionPane.showMessageDialog(null, "Generando archivo ...",
+                "GESTIÓN DE PROYECTOS", JOptionPane.INFORMATION_MESSAGE);
+        generarArchivoProyectos(losProyectos);
+    }
     }//GEN-LAST:event_jButtonGenerarAchivoProyectosActionPerformed
 
     private void jButtonLeerArchivoProyectoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerArchivoProyectoActionPerformed
-        // TODO add your handling code here:
+    JOptionPane.showMessageDialog(null, "Leyendo archivo ...",
+            "GESTIÓN DE PROYECTOS", JOptionPane.INFORMATION_MESSAGE);
+    leerArchivoProyectos(losProyectos);
     }//GEN-LAST:event_jButtonLeerArchivoProyectoActionPerformed
 
     private void jButtonLeerArchivoClienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonLeerArchivoClienteActionPerformed
-        // TODO add your handling code here:
+    JOptionPane.showMessageDialog(null, "Leyendo archivo ...",
+            "GESTIÓN DE PROYECTOS", JOptionPane.INFORMATION_MESSAGE);
+    leerArchivoClientes(losClientes);
     }//GEN-LAST:event_jButtonLeerArchivoClienteActionPerformed
 
     /**

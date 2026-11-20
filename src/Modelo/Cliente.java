@@ -3,13 +3,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package Modelo;
+import java.io.Serializable;
 
 
 /**
  *
  * @author jposp
  */
-public abstract class Cliente {
+public abstract class Cliente implements Serializable {
     protected String numeroIdentificacion;
     protected String nombre;
     protected String nombreCiudad;
