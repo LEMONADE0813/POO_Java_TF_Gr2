@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Modelo;
 
 import java.io.Serializable;
@@ -12,7 +8,7 @@ import java.util.ArrayList;
  *
  * @author Gundi
  */
-public class Proyecto implements Serializable{
+public class Proyecto implements Serializable {
     private String codigo;
     private String titulo;
     private LocalDate fechaInicio;
@@ -31,7 +27,7 @@ public class Proyecto implements Serializable{
         this.duracionEstimada = duracionEstimada;
         this.suCliente = suCliente;
         this.suGerente = suGerente;
-        this.suEquipo = suEquipo;
+        this.suEquipo = (suEquipo != null) ? suEquipo : new ArrayList<>();
         this.estado = estado;
     }
 
@@ -43,6 +39,7 @@ public class Proyecto implements Serializable{
         this.duracionEstimada = duracionEstimada;
         this.suCliente = suCliente;
         this.suGerente = suGerente;
+        this.suEquipo = new ArrayList<>();
         this.estado = estado;
     }
 
@@ -120,39 +117,59 @@ public class Proyecto implements Serializable{
 
     @Override
     public String toString() {
-        return "Proyecto{" 
-                + "codigo=" 
-                + codigo 
-                + ", titulo=" 
-                + titulo 
-                + ", fechaInicio=" 
-                + fechaInicio 
-                + ", unidadDuracion=" 
-                + unidadDuracion 
-                + ", duracionEstimada=" 
-                + duracionEstimada 
-                + ", suCliente=" 
-                + suCliente 
-                + ", suGerente=" 
-                + suGerente 
-                + ", suEquipo=" 
-                + suEquipo 
-                + ", estado=" 
-                + estado 
+        return "Proyecto{"
+                + "codigo="
+                + codigo
+                + ", titulo="
+                + titulo
+                + ", fechaInicio="
+                + fechaInicio
+                + ", unidadDuracion="
+                + unidadDuracion
+                + ", duracionEstimada="
+                + duracionEstimada
+                + ", suCliente="
+                + suCliente
+                + ", suGerente="
+                + suGerente
+                + ", suEquipo="
+                + suEquipo
+                + ", estado="
+                + estado
                 + '}';
     }
-    
+
     public LocalDate determinarFechaFinalizacion() {
-        return null;
+        if (fechaInicio == null || unidadDuracion == null) {
+            return null;
+        }
+        return switch (unidadDuracion.trim().toLowerCase()) {
+            case "dia", "día", "dias", "días" -> fechaInicio.plusDays(duracionEstimada);
+            case "semana", "semanas" -> fechaInicio.plusWeeks(duracionEstimada);
+            case "mes", "meses" -> fechaInicio.plusMonths(duracionEstimada);
+            case "año", "años", "anio", "anios" -> fechaInicio.plusYears(duracionEstimada);
+            default -> null;
+        };
     }
-    
+
     public void agregarIntegrante(Empleado nuevoIntegrante) {
-     
+        if (this.suEquipo == null) {
+            this.suEquipo = new ArrayList<>();
+        }
+        if (nuevoIntegrante != null) {
+            this.suEquipo.add(nuevoIntegrante);
+        }
     }
-    
+
     public Empleado eliminarIntegrante(String numeroIdentificacion) {
+        if (this.suEquipo == null || numeroIdentificacion == null) {
+            return null;
+        }
+        for (int i = 0; i < suEquipo.size(); i++) {
+            if (suEquipo.get(i).getNumeroIdentificacion().equals(numeroIdentificacion)) {
+                return suEquipo.remove(i);
+            }
+        }
         return null;
     }
-    
-    
 }
