@@ -74,7 +74,7 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
                 }
                 break;
             case("Meses"):
-                if (duracionEstimada<1 || duracionEstimada>11 || duracionEstimada<13 || duracionEstimada>23 || duracionEstimada<25 || duracionEstimada>35 ){
+                if (duracionEstimada==0|| duracionEstimada==12|| duracionEstimada==24 || duracionEstimada>35 ){
                     entradaInvalida = true;
                     msgEntradaInvalida += "\n Duracion Estima: Falla en la lógica, si la unidad de duracion es Meses su duracion debe estar entre 1 y 11, o entre 13 y 23, o máximo entre 25 y 35";
                 }
@@ -121,6 +121,10 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
         String correoElectronico = null;
         
         switch(tipoCliente){
+            case "":
+                entradaInvalida = true;           
+                msgEntradaInvalida += "\n No se selecciono un tipo";
+                
             case "PERSONA NATURAL":
                 numeroTelefono = jTextFieldNumeroTelefonoPer1.getText();        
                 if(numeroTelefono.isEmpty() || numeroTelefono.isBlank()){
@@ -254,11 +258,23 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
     this.losProyectos = losProyectos;
 
     jTextFieldCodigo.setText(generarCodigo(losProyectos));
+    jTextFieldNombreContacto1.setEnabled(false);
+    jTextFieldCargo1.setEnabled(false);
+    jTextFieldNumeroTelefonicoEmp1.setEnabled(false);
+    jTextFieldCorreoElectronicoEmp1.setEnabled(false);
+    jTextFieldNumeroTelefonoPer1.setEnabled(false);
+    jTextFieldCorreoElectronicoPer1.setEnabled(false);
 }
     public UsaRegistrarProyecto() {
         initComponents();
         
         jTextFieldCodigo.setText(generarCodigo(losProyectos));
+        jTextFieldNombreContacto1.setEnabled(false);
+        jTextFieldCargo1.setEnabled(false);
+        jTextFieldNumeroTelefonicoEmp1.setEnabled(false);
+        jTextFieldCorreoElectronicoEmp1.setEnabled(false);
+        jTextFieldNumeroTelefonoPer1.setEnabled(false);
+        jTextFieldCorreoElectronicoPer1.setEnabled(false);
     }
     
 
@@ -441,7 +457,8 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
 
         jLabel33.setText("Nombre Ciudad:");
 
-        jComboBoxTipo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Persona Natural", "Empresa" }));
+        jComboBoxTipo1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "", "Persona Natural", "Empresa" }));
+        jComboBoxTipo1.addActionListener(this::jComboBoxTipo1ActionPerformed);
 
         jLabel34.setText("Numero Telefono:");
 
@@ -791,6 +808,32 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
 
         this.dispose();
     }//GEN-LAST:event_jButtonSalir1ActionPerformed
+
+    private void jComboBoxTipo1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipo1ActionPerformed
+        String tipoCliente = jComboBoxTipo1.getSelectedItem().toString().toUpperCase();
+        if(tipoCliente.equals("PERSONA NATURAL")){
+            jTextFieldNombreContacto1.setEnabled(false);
+            jTextFieldCargo1.setEnabled(false);
+            jTextFieldNumeroTelefonicoEmp1.setEnabled(false);
+            jTextFieldCorreoElectronicoEmp1.setEnabled(false);
+            jTextFieldNumeroTelefonoPer1.setEnabled(true);
+            jTextFieldCorreoElectronicoPer1.setEnabled(true);
+        } else if (tipoCliente.equals("EMPRESA")){
+            jTextFieldNombreContacto1.setEnabled(true);
+            jTextFieldCargo1.setEnabled(true);
+            jTextFieldNumeroTelefonicoEmp1.setEnabled(true);
+            jTextFieldCorreoElectronicoEmp1.setEnabled(true);
+            jTextFieldNumeroTelefonoPer1.setEnabled(false);
+            jTextFieldCorreoElectronicoPer1.setEnabled(false);            
+        }else{
+            jTextFieldNombreContacto1.setEnabled(false);
+            jTextFieldCargo1.setEnabled(false);
+            jTextFieldNumeroTelefonicoEmp1.setEnabled(false);
+            jTextFieldCorreoElectronicoEmp1.setEnabled(false);
+            jTextFieldNumeroTelefonoPer1.setEnabled(false);
+            jTextFieldCorreoElectronicoPer1.setEnabled(false);
+        }
+    }//GEN-LAST:event_jComboBoxTipo1ActionPerformed
 
     /**
      * @param args the command line arguments
