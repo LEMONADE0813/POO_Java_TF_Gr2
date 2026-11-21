@@ -17,7 +17,8 @@ import javax.swing.JOptionPane;
  */
 public class UsaRegistrarCliente extends javax.swing.JFrame {
     
-    private ArrayList<Cliente> losClientes = new ArrayList<>();
+    
+    private ArrayList<Cliente> losClientes;
     
     public ArrayList<Cliente> registrarCliente(ArrayList<Cliente> losClientes){
         String numeroIdentificacion;
@@ -130,10 +131,19 @@ public class UsaRegistrarCliente extends javax.swing.JFrame {
         jTextFieldNumeroTelefonicoEmp.setText("");
         jTextFieldCorreoElectronicoEmp.setText("");
     }
+    
+    public ArrayList<Cliente> getLosClientes() {
+        return losClientes;
+    }
 
     /**
      * Creates new form UsaRegistrarCliente
      */
+    
+    public UsaRegistrarCliente(ArrayList<Cliente> losClientes) {
+    initComponents();
+    this.losClientes = losClientes;
+    }
     public UsaRegistrarCliente() {
         initComponents();
     }
@@ -355,7 +365,7 @@ public class UsaRegistrarCliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jComboBoxTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jComboBoxTipoActionPerformed
-        if(jComboBoxTipo.getSelectedItem().equals("Persona Natural")){
+        if(jComboBoxTipo.getSelectedItem().equals("Empresa")){
             jTextFieldNumeroTelefonoPer.setEnabled(false); 
             jTextFieldCorreoElectronicoPer.setEnabled(false);
             jTextFieldNombreContacto.setEnabled(true);  
@@ -375,7 +385,10 @@ public class UsaRegistrarCliente extends javax.swing.JFrame {
     private void jButtonSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalirActionPerformed
         JOptionPane.showMessageDialog(null, "Saliendo del Sistema");
         inicializarEntradasRegistro();
-        System.exit(0);                   
+        dispose();
+        UsaRegistrarCliente ventana = new UsaRegistrarCliente(losClientes);
+        ventana.setDefaultCloseOperation(javax.swing.JFrame.DISPOSE_ON_CLOSE);
+        ventana.setVisible(false);
     }//GEN-LAST:event_jButtonSalirActionPerformed
 
     private void jButtonRegistrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonRegistrarActionPerformed

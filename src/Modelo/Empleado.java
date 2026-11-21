@@ -4,29 +4,31 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 /**
  *
  * @author jp
  */
-public class Empleado {
-    private String numeroIdentificacion;
-    private String nombreCompleto;
+public class Empleado implements Serializable{
+    private String numeroIde;
+    private String nombreComp;
     private String tituloProfesional;
     private byte aniosExperiencia;
 
-    public Empleado(String numeroIdentificacion, String nombreCompleto, String tituloProfesional, byte aniosExperiencia) {
-        this.numeroIdentificacion = numeroIdentificacion;
-        this.nombreCompleto = nombreCompleto;
+    public Empleado(String numeroIde, String nombreComp, String tituloProfesional, byte aniosExperiencia) {
+        this.numeroIde = numeroIde;
+        this.nombreComp = nombreComp;
         this.tituloProfesional = tituloProfesional;
         this.aniosExperiencia = aniosExperiencia;
     }
 
-    public String getNumeroIdentificacion() {
-        return numeroIdentificacion;
+    public String getNumeroIde() {
+        return numeroIde;
     }
 
-    public String getNombreCompleto() {
-        return nombreCompleto;
+    public String getNombreComp() {
+        return nombreComp;
     }
 
     public String getTituloProfesional() {
@@ -37,12 +39,12 @@ public class Empleado {
         return aniosExperiencia;
     }
 
-    public void setNumeroIdentificacion(String numeroIdentificacion) {
-        this.numeroIdentificacion = numeroIdentificacion;
+    public void setNumeroIde(String numeroIde) {
+        this.numeroIde = numeroIde;
     }
 
-    public void setNombreCompleto(String nombreCompleto) {
-        this.nombreCompleto = nombreCompleto;
+    public void setNombreComp(String nombreComp) {
+        this.nombreComp = nombreComp;
     }
 
     public void setTituloProfesional(String tituloProfesional) {
@@ -55,7 +57,7 @@ public class Empleado {
 
     @Override
     public String toString() {
-        return "Empleado{" + "numeroIdentificacion=" + numeroIdentificacion + ", nombreCompleto=" + nombreCompleto + ", tituloProfesional=" + tituloProfesional + ", aniosExperiencia=" + aniosExperiencia + '}';
+        return "Empleado{" + "numeroIdentificacion=" + numeroIde + ", nombreCompleto=" + nombreComp + ", tituloProfesional=" + tituloProfesional + ", aniosExperiencia=" + aniosExperiencia + '}';
     }
     
     

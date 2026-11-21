@@ -4,12 +4,14 @@
  */
 package Modelo;
 
+import java.io.Serializable;
+
 
 /**
  *
  * @author jposp
  */
-public abstract class Cliente {
+public abstract class Cliente implements Serializable{
     protected String numeroIdentificacion;
     protected String nombre;
     protected String nombreCiudad;
@@ -48,6 +50,5 @@ public abstract class Cliente {
     public String toString() {
         return "Cliente{" + "numeroIdentificacion=" + numeroIdentificacion + ", nombre=" + nombre + ", nombreCiudad=" + nombreCiudad + '}';
     }
-    
     
 }

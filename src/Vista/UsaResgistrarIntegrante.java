@@ -64,12 +64,15 @@ public class UsaResgistrarIntegrante extends javax.swing.JFrame {
         return losEmpleados;
     }
     
+    
     public void inicializarEntradasRegistro(){
         jTextFieldNumeroIde.setText("");
         jTextFieldNombreCompleto.setText("");
         jTextFieldTituloProfesional.setText("");
         jTextFieldAniosProfesional.setText("");
     }
+    
+    
 
     /**
      * Creates new form UsaResgistrarIntegrante
