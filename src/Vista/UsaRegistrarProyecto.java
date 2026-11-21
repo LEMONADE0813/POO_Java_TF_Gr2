@@ -795,6 +795,9 @@ public class UsaRegistrarProyecto extends javax.swing.JFrame {
     private void jButtonSalir1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonSalir1ActionPerformed
         JOptionPane.showMessageDialog(null, "Saliendo del Sistema");
         inicializarEntradasRegistro();
+        UsaProyectoGUI ventana = new UsaProyectoGUI(losProyectos);
+        ventana.setVisible(true);
+
         this.dispose();
     }//GEN-LAST:event_jButtonSalir1ActionPerformed
 
